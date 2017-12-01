@@ -43,6 +43,7 @@ public class Driver {
 	
 	// Function findPrivateKey takes in two values (a and b) and returns a value y such that a*x + b*y = gcd(a, b)
 		public static BigInteger findPrivateKey(BigInteger a, BigInteger b){
+			BigInteger originalA = a;		// holds the current value of x
 			BigInteger x = new BigInteger("0");		// holds the current value of x
 			BigInteger y = new BigInteger("1");		// holds the current value of y
 			BigInteger prevx = new BigInteger("1"); // holds the value of x one cycle previously
@@ -61,7 +62,7 @@ public class Driver {
 	            a = b; 			// set a = b
 	            b = r;		// set b = a%b
 	            
-	            //System.out.println("check values: x = "+x+" y = "+ y);
+	           // System.out.println("check values: x = "+x+" y = "+ y);
 	 
 	            temp = x; 							//save the current value of x
 	            x = prevx.subtract(q.multiply(x));  //get the new value of x
@@ -74,7 +75,10 @@ public class Driver {
 	            
 	        }
 	        //the answer will be saved in the previous values of x and y.
-	        System.out.println("x : "+ prevx +" y :"+ prevy);
+	        //System.out.println("x : "+ prevx +" y :"+ prevy);
+	        if (prevy.signum() != 1){
+	        	prevy = prevy.add(originalA);
+	        }
 	        return prevy; //return y as the private key
 		}
 }
